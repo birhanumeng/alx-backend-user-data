@@ -68,61 +68,36 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    ''' Description: you will connect to a secure holberton database to read a
-                     users table. The database is protected by a username and
-                     password that are set as environment variables on the
-                     server named PERSONAL_DATA_DB_USERNAME (set the default as
-                     "root"), PERSONAL_DATA_DB_PASSWORD (set the default as an
-                     empty string) and PERSONAL_DATA_DB_HOST (set the default
-                 as "localhost").
-
-        The database name is stored in PERSONAL_DATA_DB_NAME.
-
-        Implement a get_db function that returns a connector to the database
+    """ It returns a connector to the database
         (mysql.connector.connection.MySQLConnection object).
-
-           - Use the os module to obtain credentials from the environment
-           - Use the module mysql-connector-python to connect to the MySQL
-             database (pip3 install mysql-connector-python)
-    '''
-    connection_db = mysql.connector.connection.MySQLConnection(
+    """
+    connection = mysql.connector.connection.MySQLConnection(
         user=getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
         password=getenv('PERSONAL_DATA_DB_PASSWORD', ''),
         host=getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
         database=getenv('PERSONAL_DATA_DB_NAME'))
 
-    return connection_db
+    return connection
 
 
 def main():
-    '''
-        Description: Implement a main function that takes no arguments and
-                     returns nothing.
-
-        The function will obtain a database connection using get_db and
-        retrieve all rows in the users table and display each row under a
-        filtered format
-
-        Filtered fields:
-                          name
-                          email
-                          phone
-                          ssn
-                          password
-    '''
-    database = get_db()
+    """ The function will obtain a database connection using get_db
+        and retrieve all rows in the users table and display each
+        row under a filtered format.
+    """
+    db = get_db()
     cursor = database.cursor()
     cursor.execute("SELECT * FROM users;")
     fields = [i[0] for i in cursor.description]
 
-    log = get_logger()
+    logger = get_logger()
 
-    for row in cursor:
-        str_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, fields))
-        log.info(str_row.strip())
+    for line in cursor:
+        str = ''.join(f'{f}={str(l)}; ' for l, f in zip(line, fields))
+        logger.info(str.strip())
 
     cursor.close()
-    database.close()
+    db.close()
 
 
 if __name__ == '__main__':
