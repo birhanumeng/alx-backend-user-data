@@ -12,7 +12,7 @@ PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
-                 separator: str) -> str:
+        separator: str) -> str:
     """ It returns the log message obfuscated.
         Arguments:
             - fields: a list of strings representing all fields
@@ -24,36 +24,27 @@ def filter_datum(fields: List[str], redaction: str, message: str,
             all fields in the log line (message)
     """
 
-    for i in fields:
-        message = re.sub(i + "=.*?" + separator,
-                         i + "=" + redaction + separator,
-                         message)
-    return message
+    for f in fields:
+        new_message = re.sub(f + "=.*?" + separator,
+                f + "=" + redaction + separator, message)
+    return new_message
 
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
-        Description: Update the class to accept a list of strings fields
-                     constructor argument.
-
-        Implement the format method to filter values in incoming log records
-        using filter_datum. Values for fields in fields should be filtered.
-
-        DO NOT extrapolate FORMAT manually. The format method should be less
-        than 5 lines long
-    """
+        """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]):
-        """ Constructor Method """
+        """ Initializer """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """ Filters values in incoming log records using filter_datum """
+        """ It filters values in incoming log records using filter_datum """
         return filter_datum(self.fields, self.REDACTION,
                             super(RedactingFormatter, self).format(record),
                             self.SEPARATOR)
