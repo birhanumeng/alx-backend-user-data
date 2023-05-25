@@ -51,29 +51,19 @@ class RedactingFormatter(logging.Formatter):
 
 
 def get_logger() -> logging.Logger:
-    ''' Description: Implement a get_logger function that takes no arguments
-                     and returns a logging.Logger object.
-
-        The logger should be named "user_data" and only log up to logging.INFO
-        level. It should not propagate messages to other loggers. It should
-        have a StreamHandler with RedactingFormatter as formatter.
-
-        Create a tuple PII_FIELDS constant at the root of the module containing
-        the fields from user_data.csv that are considered PII. PII_FIELDS can
-        contain only 5 fields - choose the right list of fields that can are
-        considered as "important" PIIs or information that you must hide in
-        your logs. Use it to parameterize the formatter.
-    '''
-    log = logging.getLogger('user_data')
-    log.setLevel(logging.INFO)
-    log.propagate = False
-
-    sh = logging.StreamHandler()
+    """ This logger should be named "user_data" and only log up to
+        logging.INFO level. It should not propagate messages to other
+        loggers. It should have a StreamHandler with RedactingFormatter
+        as formatter.
+    """
+    logger = logging.getLogger('user_data')
+    logger.setLevel(logging.INFO)
+    stream_handler = logging.StreamHandler()
     formatter = RedactingFormatter(PII_FIELDS)
-    sh.setFormatter(formatter)
-    log.addHandler(sh)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
 
-    return log
+    return logger
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
@@ -83,7 +73,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                      server named PERSONAL_DATA_DB_USERNAME (set the default as
                      "root"), PERSONAL_DATA_DB_PASSWORD (set the default as an
                      empty string) and PERSONAL_DATA_DB_HOST (set the default
-                     as "localhost").
+                 as "localhost").
 
         The database name is stored in PERSONAL_DATA_DB_NAME.
 
