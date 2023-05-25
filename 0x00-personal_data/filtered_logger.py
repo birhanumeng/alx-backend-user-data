@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-''' 0. Regex-ing: filter_datum
-    1. Log formatter: class RedactingFormatter
-    2. Create logger
-    3. Connect to secure database
-    4. Read and filter data
-'''
+""" Seting up personal information data and logging. """
 
 import re
 from typing import List
@@ -18,21 +13,16 @@ PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
-    ''' Description: Regex-ing - Write a function called filter_datum that
-                     returns the log message obfuscated:
-
+    """ It returns the log message obfuscated.
         Arguments:
-            fields: a list of strings representing all fields to obfuscate
-            redaction: a string representing by what the field will be
-                       obfuscated
-            message: a string representing the log line
-            separator: a string representing by which character is
-                           separating all fields in the log line (message)
-        The function should use a regex to replace occurrences of certain
-        field values.
-        filter_datum should be less than 5 lines long and use re.sub to
-        perform the substitution with a single regex.
-    '''
+            - fields: a list of strings representing all fields
+            to obfuscate
+            - redaction: a string representing by what the field
+            will be obfuscated
+            - a string representing the log line
+            - a string representing by which character is separating
+            all fields in the log line (message)
+    """
 
     for i in fields:
         message = re.sub(i + "=.*?" + separator,
