@@ -12,6 +12,7 @@ import os
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+
 auth = None
 AUTH_TYPE = getenv("AUTH_TYPE")
 
@@ -47,7 +48,6 @@ def not_found(error) -> str:
 @app.before_request
 def before_request() -> str:
     """ Before Request Handler
-    Requests Validation
     """
     if auth is None:
         return
