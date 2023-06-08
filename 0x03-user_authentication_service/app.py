@@ -9,13 +9,13 @@ from flask import request
 from auth import Auth
 
 app = Flask(__name__)
+AUTH = Auth()
 
 
 @app.route('/', methods=['GET'])
 def hello_world() -> str:
-    """ Home page """
-    payload = {"message": "Bienvenue"}
-    return app.jsonify(payload)
+    msg = {"message": "Bienvenue"}
+    return jsonify(msg)
 
 
 if __name__ == "__main__":
