@@ -8,7 +8,7 @@ from flask import jsonify
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index() -> str:
     """ Home page """
     payload = {"message": "Bienvenue"}
