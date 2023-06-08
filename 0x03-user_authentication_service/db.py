@@ -13,18 +13,21 @@ from user import User
 
 
 class DB:
-    """ DB Class for Object Reational Mappin """
+    """DB class
+    """
 
-    def __init__(self):
-        """ Constructor Method """
-        self._engine = create_engine("sqlite:///a.db", echo=False)
+    def __init__(self) -> None:
+        """Initialize a new DB instance
+        """
+        self._engine = create_engine("sqlite:///a.db", echo=True)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
 
     @property
-    def _session(self):
-        """ Session Getter Method """
+    def _session(self) -> Session:
+        """Memoized session object
+        """
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
