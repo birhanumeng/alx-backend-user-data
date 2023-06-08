@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
-def index() -> str:
+def hello_world() -> str:
     """ Home page """
     payload = {"message": "Bienvenue"}
     return app.jsonify(payload)
