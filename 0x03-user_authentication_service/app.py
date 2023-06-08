@@ -11,7 +11,7 @@ from auth import Auth
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def hello_world() -> str:
     msg = {"message": "Bienvenue"}
     return jsonify(msg)
