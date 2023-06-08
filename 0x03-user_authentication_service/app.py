@@ -3,11 +3,12 @@
 """
 
 from flask import Flask
+from flask import jsonify
 
 app = Flask(__name__)
 
 
-@app.rout('/')
+@app.route('/')
 def index() -> str:
     """ Home page """
     payload = {"message": "Bienvenue"}
