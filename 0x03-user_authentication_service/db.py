@@ -16,7 +16,7 @@ class DB:
     """DB class
     """
 
-    def __init__(self) -> None:
+    def __init__(self):
         """Initialize a new DB instance
         """
         self._engine = create_engine("sqlite:///a.db", echo=True)
@@ -25,7 +25,7 @@ class DB:
         self.__session = None
 
     @property
-    def _session(self) -> Session:
+    def _session(self):
         """Memoized session object
         """
         if self.__session is None:
