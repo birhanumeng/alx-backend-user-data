@@ -13,8 +13,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index() -> str:
-    msg = {"message": "Bienvenue"}
-    return jsonify(msg)
+    payload = {"message": "Bienvenue"}
+    return jsonify(payload)
 
 
 if __name__ == "__main__":
