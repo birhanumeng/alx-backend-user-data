@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world() -> str:
+def index() -> str:
     msg = {"message": "Bienvenue"}
     return jsonify(msg)
 
