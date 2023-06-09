@@ -16,6 +16,13 @@ def _hash_password(password: str) -> str:
     return hashpw(password.encode('utf-8'), gensalt())
 
 
+def _generate_uuid() -> str:
+
+    """ Generate uuid4 and return it as a string
+    """
+    return str(uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -45,9 +52,3 @@ class Auth:
             return checkpw(password.encode('utf-8'), user.hashed_password)
         except NoResultFound:
             return False
-
-
-def _generate_uuid() -> str:
-    """ Generate uuid4 and return it as a string
-    """
-    return str(uuid4())
