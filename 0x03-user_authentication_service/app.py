@@ -15,6 +15,7 @@ def index() -> str:
     payload = {"message": "Bienvenue"}
     return jsonify(payload)
 
+
 @app.route('/users', methods=['POST'])
 def register_users() -> str:
     try:
