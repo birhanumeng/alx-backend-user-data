@@ -36,10 +36,11 @@ class Auth:
         else:
             raise ValueError(f'User {email} already exists')
 
-    def valid_login(email: str, password: str) -> bool:
-        """ Check the pasword """
+    def valid_login(slef, email: str, password: str) -> bool:
+        """ Check the pasword
+        """
         try:
-            user = User.find_user_by(email)
+            user = self_db.find_user_by(email)
             return checkpw(password.encode('utf-8'), user.hashed_password)
         except:
             return False
