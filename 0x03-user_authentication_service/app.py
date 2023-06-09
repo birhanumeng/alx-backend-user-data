@@ -33,6 +33,13 @@ def register_users() -> str:
 
 @app.route('/sessions', methods=['POST'])
 def login() -> str:
+    form_data = request.form
+
+    if "email" not in form_data:
+        return jsonify({"message": "email required"}), 400
+    if "password" not in form_data:
+        return jsonify({"message": "password required"}), 400
+
     email = request.form['email']
     password = request.form['password']
 
