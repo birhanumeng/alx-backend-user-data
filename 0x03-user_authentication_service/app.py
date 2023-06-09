@@ -33,6 +33,7 @@ def register_users() -> str:
 
 @app.route('/sessions', methods=['POST'])
 def login() -> str:
+    """ Implement the login """
     form_data = request.form
 
     if "email" not in form_data:
