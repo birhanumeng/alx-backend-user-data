@@ -33,13 +33,9 @@ def register_users() -> str:
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login() -> str:
-    """ Implement the login """
     form_data = request.form
-
-    if "email" not in form_data:
-        return jsonify({"message": "email required"}), 400
-    if "password" not in form_data:
-        return jsonify({"message": "password required"}), 400
+    if "email" not in form_data or "password" not in form_data:
+        return jsonify({"message": "both email and passwor required"}), 400
 
     email = request.form['email']
     password = request.form['password']
@@ -49,8 +45,7 @@ def login() -> str:
         response = jsonify({"email": email, "message": "logged in"})
         response.set_cookie('session_id', session_id)
         return response
-    else:
-        abort(401)
+    abort(401)
 
 
 if __name__ == "__main__":
