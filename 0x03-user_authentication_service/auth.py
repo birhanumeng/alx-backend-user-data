@@ -5,6 +5,7 @@
 from bcrypt import hashpw, gensalt, checkpw
 from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
+from typing import Union
 
 from db import DB
 from user import User
@@ -64,7 +65,7 @@ class Auth:
         except NoResultFound:
             return None
 
-    def get_user_from_session_id(session_id: str) -> str:
+    def get_user_from_session_id(session_id: str) -> Union[str, None]:
         """ Find a user from the session id it exist.
         """
         if session_id is None:
