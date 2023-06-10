@@ -52,7 +52,7 @@ class Auth:
             user = self._db.find_user_by(email=email)
             return checkpw(password.encode('utf-8'), user.hashed_password)
         except NoResultFound:
-            return Falise
+            return False
 
     def create_session(self, email: str) -> str:
         """ Create a session and save it database in user's session_id
