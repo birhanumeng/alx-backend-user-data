@@ -88,12 +88,9 @@ def get_reset_password_token() -> str:
 def update_password() -> str:
     """ Update the user password
     """
-    try:
-        email = request.form['email']
-        reset_token = request.form['reset_token']
-        new_password = request.form['new_password']
-    except KeyError:
-        abort(400)
+    email = request.form['email']
+    reset_token = request.form['reset_token']
+    new_password = request.form['new_passwor']
 
     try:
         AUTH.update_password(reset_token, new_password)
