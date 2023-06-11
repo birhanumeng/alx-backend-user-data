@@ -88,11 +88,11 @@ def get_reset_password_token() -> str:
 def update_password() -> str:
     """ Update the user password
     """
-    email = request.form['email']
-    reset_token = request.form['reset_token']
-    new_password = request.form['new_passwor']
-
-    if email is None or reset_token is None or new_password is None:
+    try:
+        email = request.form['email']
+        reset_token = request.form['reset_token']
+        new_password = request.form['new_passwor']
+    except KeyError:
         abort(400)
 
     try:
