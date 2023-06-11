@@ -63,8 +63,7 @@ def log_out(session_id: str) -> None:
         'session_id': session_id
     })
 
-    for his in res.history:
-        assert his.status_code == 302
+    assert res.status_code == 302
 
 
 def reset_password_token(email: str) -> str:
