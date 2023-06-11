@@ -62,7 +62,6 @@ def log_out(session_id: str) -> None:
     res = requests.delete('http://127.0.0.1:5000/sessions', cookies={
         'session_id': session_id
     })
-
     assert res.status_code == 302
 
 
