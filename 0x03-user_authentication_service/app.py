@@ -90,13 +90,13 @@ def update_password() -> str:
     """
     email = request.form['email']
     reset_token = request.form['reset_token']
-    password = request.form['password']
+    new_password = request.form['new_password']
 
-    if email is None or reset_token is None or password is None:
+    if email is None or reset_token is None or new_password is None:
         return jsonify({"message": "All fields are required"})
     
     try:
-        AUTH.update_password(reset_token, password)
+        AUTH.update_password(reset_token, new_password)
         return jsonify({"email": email, "message": "Password updated"})
     except ValueError:
         abort(403)
